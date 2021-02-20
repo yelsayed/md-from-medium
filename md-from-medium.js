@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const request = require('request');
 const cheerio = require('cheerio');
 const TurndownService = require('turndown');
@@ -170,10 +168,10 @@ function getMetaData($) {
     const dateCreated = metadata.dateCreated;
     const dateModified = metadata.dateModified;
     const description = metadata.description;
-    var firsth1 = $('h1').eq(0);
+    const firsth1 = $('h1').eq(0);
 
     // The element next to the first header is a useless thing that we can delete
-    var authorHeader = firsth1.siblings();
+    const authorHeader = firsth1.siblings();
 
     const blogTitle  = firsth1.html();
 
@@ -189,7 +187,7 @@ function getMetaData($) {
     return [metadata, $]
 }
 
-function medium2md(url, dir) {
+function mdFromMedium(url, dir) {
     console.log("Fetching from medium...");
     directory = dir;
     return new Promise(function(resolve, reject) {
@@ -219,4 +217,4 @@ function medium2md(url, dir) {
     });
 }
 
-module.exports = medium2md;
+module.exports = mdFromMedium;

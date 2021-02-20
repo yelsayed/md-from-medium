@@ -1,13 +1,15 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
-const medium2md = require('./medium2md.js');
+const mdFromMedium = require('./md-from-medium.js');
 const url = process.argv[2],
     dir = process.argv[3];
 
 module.exports = {
-  medium2md
+  mdFromMedium
 }
 
-medium2md(url, dir).then(function(markdown) {
+mdFromMedium(url, dir).then(function(markdown) {
     const path = `${dir}/index.md`;
     fs.writeFile(path, markdown, function (err) {
       if (err) return console.log(err);
