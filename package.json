@@ -1,6 +1,6 @@
 {
   "name": "md-from-medium",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Allows you to pull your Medium blogs locally and rewrites them in MarkDown.",
   "main": "medium2md.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yelsayed/medium2md.git"
+    "url": "git+https://github.com/yelsayed/md-from-medium.git"
   },
   "author": "Yasser El-Sayed",
   "license": "MIT",
@@ -19,6 +19,11 @@
   "bin": {
     "md-from-medium": "./main.js"
   },
+  "keywords": [
+    "medium",
+    "markdown",
+    "html-to-markdown",
+  ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
     "image-downloader": "^4.0.2",
