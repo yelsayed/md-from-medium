@@ -22,7 +22,7 @@
   "keywords": [
     "medium",
     "markdown",
-    "html-to-markdown",
+    "html-to-markdown"
   ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
