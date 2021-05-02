@@ -1,6 +1,6 @@
 {
   "name": "md-from-medium",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Allows you to pull your Medium blogs locally and rewrites them in MarkDown.",
   "main": "medium2md.js",
   "scripts": {
