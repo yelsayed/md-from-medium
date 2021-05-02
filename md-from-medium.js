@@ -111,14 +111,16 @@ turndownService.addRule('iframes', {
 // the image that we want. We do this because figure also contains the caption that we want
 turndownService.addRule('images', {
     filter: function(node, options) {
-    	return (
-    		node.nodeName === 'FIGURE' && 
-    		node.querySelectorAll('noscript').length > 0
-    	);
+    	return node.nodeName === 'FIGURE';
     },
 
     replacement: function(content, node) {
     	var imgNode = node.querySelectorAll('noscript')[0];
+        
+        if (imgNode === undefined) {
+            imgNode = node.querySelectorAll('div')[0];
+        }
+
     	var imgHTML = imgNode.innerHTML;
     	var caption = node.querySelectorAll('figcaption')[0];
     	caption = caption ? caption.innerHTML : '';
@@ -138,7 +140,7 @@ turndownService.addRule('images', {
 
         var title = node.title || '';
         var titlePart = title ? ' "' + title + '"' : '';
-        var dest = `./imgs`;
+        var dest = `./${directory}/imgs`;
 
         // Create the directory if it doesn't exist
         if (!fs.existsSync(dest)) {
@@ -154,7 +156,7 @@ turndownService.addRule('images', {
             })
             .catch((err) => {return})
 
-        const fullPath = `${dest}/${filename}`;
+        const fullPath = `./imgs/${filename}`;
         var ret = src ? `![${caption}](${fullPath})` : '';
         console.log(`Saved image to ${fullPath}`)
         return ret;
