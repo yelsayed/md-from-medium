@@ -5,12 +5,22 @@ const mdFromMedium = require('./md-from-medium.js');
 const url = process.argv[2],
     dir = process.argv[3];
 
+if (url === undefined || url === null) {
+    console.log("Usage: md-from-medium <url> <dir>");
+    return;
+}
+
 module.exports = {
   mdFromMedium
 }
 
 mdFromMedium(url, dir).then(function(markdown) {
-    const path = `${dir}/index.md`;
+    const path = `./${dir}/index.md`;
+
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+
     fs.writeFile(path, markdown, function (err) {
       if (err) return console.log(err);
     });

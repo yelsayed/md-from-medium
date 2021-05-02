@@ -138,7 +138,7 @@ turndownService.addRule('images', {
 
         var title = node.title || '';
         var titlePart = title ? ' "' + title + '"' : '';
-        var dest = `./${directory}/imgs`;
+        var dest = `./imgs`;
 
         // Create the directory if it doesn't exist
         if (!fs.existsSync(dest)) {
