@@ -73,12 +73,12 @@ turndownService.addRule('noHiddenImages', {
 turndownService.addRule('code blocks', {
     filter: 'pre',
     replacement: function(content, node) {
-        return "```\n" + content + "\n```"
+        return `\`\`\`\n${content}\n\`\`\``
     }
 })
 
 function createElementFromHTML(htmlString) {
-  var div = document.createElement('div');
+  const div = document.createElement('div');
   div.innerHTML = htmlString.trim();
 
   // Change this to div.childNodes to support multiple top-level nodes
@@ -86,7 +86,7 @@ function createElementFromHTML(htmlString) {
 }
 
 function createElementFromHTML(htmlString) {
-  var div = document.createElement('div');
+  const div = document.createElement('div');
   div.innerHTML = htmlString.trim();
 
   // Change this to div.childNodes to support multiple top-level nodes
@@ -115,32 +115,38 @@ turndownService.addRule('images', {
     },
 
     replacement: function(content, node) {
-    	var imgNode = node.querySelectorAll('noscript')[0];
+        let imgHTML;
+    	let imgNode = node.querySelectorAll('noscript')[0];
         
-        if (imgNode === undefined) {
+        if (imgNode === undefined)
             imgNode = node.querySelectorAll('div')[0];
+
+        if (imgNode === undefined){ 
+            imgNode = node.querySelectorAll('img')[0];
+            imgHTML = imgNode.outerHTML;
+        } else {
+            imgHTML = imgNode.innerHTML;
         }
 
-    	var imgHTML = imgNode.innerHTML;
-    	var caption = node.querySelectorAll('figcaption')[0];
+    	let caption = node.querySelectorAll('figcaption')[0];
     	caption = caption ? caption.innerHTML : '';
 
     	// Since this is just raw HTML we need to load it once more :D
-    	var overNode = cheerio.load(imgHTML);
+    	const overNode = cheerio.load(imgHTML);
 
     	node = overNode('img');
     	if (node.attr('src') &&
     		node.attr('src').endsWith('?q=20')) {
     		return '';
     	}
-        var src = node.attr('src') || '';
-        var width = node.attr('width');
-        var filename = src.match(/(?:[^\/\/](?!(\/|\/)))+$/)
+        const src = node.attr('src') || '';
+        const width = node.attr('width');
+        let filename = src.match(/(?:[^\/\/](?!(\/|\/)))+$/)
         filename = filename ? filename[0] : ''
 
-        var title = node.title || '';
-        var titlePart = title ? ' "' + title + '"' : '';
-        var dest = `./${directory}/imgs`;
+        const title = node.title || '';
+        const titlePart = title ? ' "' + title + '"' : '';
+        const dest = `./${directory}/imgs`;
 
         // Create the directory if it doesn't exist
         if (!fs.existsSync(dest)) {
@@ -157,7 +163,7 @@ turndownService.addRule('images', {
             .catch((err) => {return})
 
         const fullPath = `./imgs/${filename}`;
-        var ret = src ? `![${caption}](${fullPath})` : '';
+        const ret = src ? `![${caption}](${fullPath})` : '';
         console.log(`Saved image to ${fullPath}`)
         return ret;
     }
@@ -211,7 +217,7 @@ function mdFromMedium(url, dir) {
 			let html = $('article').html() || '';
             let markdown = turndownService.turndown(html);
                    
-            var fullArticle = metadata + markdown;
+            const fullArticle = metadata + markdown;
 
             resolve(fullArticle);
 

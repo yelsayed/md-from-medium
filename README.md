@@ -14,6 +14,16 @@ npm install -g md-from-medium
 md-from-medium <mediumPostUrl> <markdownDir>
 ```
 
+### Features
+
+##### Image downloads
+
+This tool downloads all the images that need to be downloaded and links them in the Markdown.
+
+##### Metadata
+
+The metadata (namely `title`, `date` and `description`) is extracted from these pages as well, making it easy for you to customize article thumbnail cards and SEO.
+
 ### Downsides
 
 Currently doesn't support pulling Github gist embeds, if your Medium post has any of those you will have to import them manually into the `.md` file. 
